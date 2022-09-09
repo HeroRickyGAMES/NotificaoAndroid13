@@ -1,0 +1,67 @@
+XML:
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+
+
+JAVA:
+
+VERIFICADORES DE SDK (Classe separada):
+
+    int AndroidVersionSDK = Build.VERSION.SDK_INT;
+
+ if(AndroidVersionSDK < 33){
+                        Intent intent = new Intent(getApplicationContext(), Autenticacao_activity.class);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(getApplicationContext(), verifyNotificationPermission.class);
+                        startActivity(intent);
+
+
+Na activity de verificação:
+
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+
+    private View view;
+    private static final int PERMISSION_REQUEST_CODE = 200;
+
+
+        verifyNotifyPermission(view);
+
+
+
+
+    public void verifyNotifyPermission(View view){
+
+        if (!checkPermission()) {
+
+            requestPermission();
+
+        } else {
+
+
+            Intent intent = new Intent(this, Autenticacao_activity.class);
+            startActivity(intent);
+        }
+    }
+
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), POST_NOTIFICATIONS);
+
+        return result == PackageManager.PERMISSION_GRANTED;
+
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this, new String[]{POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
+
+
+    }
+    public void Intent(View view){
+
+        Intent intent = new Intent(this, Autenticacao_activity.class);
+        startActivity(intent);
+    }
+
+
